@@ -1,0 +1,32 @@
+<html>
+<head>
+  <title>Log In/Register</title>
+</head>
+<body>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    Session id: {{request.session.id}}
+    <h2>Register</h2>
+    <form action='/register' method='POST'>
+        {% csrf_token %}
+        Name:<input type="text" name="name" id="name">
+        Alias:<input type="text" name="alias" id="alias">
+        Email Address:<input type="text" name="email" id="email">
+        Password:<input type="password" name="pass" id="pass">
+        Confirm Password:<input type="password" name="confirm" id="confirm">
+        <input type="submit" value="Register">
+    </form>
+    <h2>Log In</h2>
+    <form action='/login' method='POST'>
+        {% csrf_token %}
+        Email Address:<input type="text" name="logemail" id="logemail">
+        Password:<input type="password" name="logpass" id="logpass">
+        <input type="submit" value="Log In">
+    </form>
+</body>
+</html>

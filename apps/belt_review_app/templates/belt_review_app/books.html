@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title>Books Home</title>
+</head>
+<body>
+    {{request.session.id}} 
+    <div id="wrapper">
+        <div id="header">
+                <h2>Welcome: {{request.session.alias}} </h2>
+            <a href="/books/add">Add Book and Review</a>
+            <a href="/logout">Log out</a>
+        </div>
+        
+        <div id="recentreviews">
+            <p>Recent Reviews</p>
+            <table>
+            {% for rec in recent %}
+                {% for book in books %}
+                    {% if book.id == rec.books_id%}
+                        <tr><td>Title: <a href="/books/{{book.id}}">{{book.title}}</a></td></tr>
+                        <tr><td>rating: {{rec.rating}}</td></tr>
+                        {% for user in users %}
+                            {% if user.id == rec.users_id %}
+                                <tr><td>User Id <a href="/users/{{rec.users_id}}">{{user.alias}}</a> says: {{rec.descr}}</td></tr>
+                            {% endif %}
+                        {% endfor %}
+                        <tr><td>Posted on: {{rec.created_at}}</td></tr>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            </table>
+        </div>
+        <div id="allbooks">
+            <br>Other Books with Reviews:
+            <table>
+                {% for book in books %}
+                    <tr>
+                        <td>Title: <a href="/books/{{book.id}}">{{book.title}}</a></td>
+                        <td>Author: {{book.author}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>    
+    </div>
+
+</body>
+</html>

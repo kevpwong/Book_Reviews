@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="header">
+        <a href="/books">Home</a>
+        <a href="/logout">Log out</a>
+    </div>
+    <div id="add"></div>
+        <h3>Add a new Book Title and a Review:</h3>
+        <form action="/addreview" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="loggeduser" value={{request.session.id}}>
+            Book Title: <input type="text" name="title"> <br>
+            Author: <br>
+                Choose from the list <select name="author">
+                    <option value="author1">Author 1</option> 
+                    <option value="author2">Author 2</option>
+                    <option value="author3">Author 3</option>
+                </select><br>
+                Or add a new author: <input type="text" name="newauthor"><br>
+            Review <textarea name="review"></textarea><br>
+            Rating <select name="rating">
+                    <option value="5">5</option> 
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select> Stars
+            <input type="submit" value="Add Book and Review">
+        </form>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <a href="/books">Home</a>
+            <a href="/logout">Log out</a>
+        </div>
+        {% for book in specbook %}
+            <h3>Title: {{book.title}}</h3>
+            <p>Author: {{book.author}}</p>
+            <br>
+            <h3>Reviews:</h3>
+                {% for review in reviews %}
+                    <p>rating: {{review.rating}}</p>
+                    {% for user in users %}
+                        {% if user.id == review.users_id %}
+                            <p>User Id <a href="/users/{{review.users_id}}">{{user.name}}</a> says: {{review.descr}}</p>
+                            <p>Posted on: {{review.created_at}}</p>     
+                            {% if request.session.id == user.id %}
+                                <a href='/delete/{{review.id}}'>Delete this Review</a>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                                       
+                {% endfor %}
+            <form action="/addreview" method='POST'>
+                {% csrf_token %}
+                <input type="hidden" name="title" value={{book.title}}>
+                <br>Add a Review: <br>
+                <textarea name="review" ></textarea>
+                Rating: <select name="rating">
+                        <option value="5">5</option> 
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                    </select> Stars
+                <input type="submit" value="Submit Review">
+            </form>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

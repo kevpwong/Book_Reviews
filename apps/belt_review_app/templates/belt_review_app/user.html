@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="header">
+        <a href="/books">Home</a>
+        <a href="/logout">Log out</a>
+    </div>
+    {% for user in specuser %}
+        <h3>User Alias: {{user.alias}}</h3>       
+        <p>Name: {{user.name}}</p>
+        <p>Email: {{user.email}}</p>
+        <p>Total Reviews: {{count}}</p>
+        <ul> Posted Reviews on the following books:
+            {% for book,val in reviewed.items %}
+                <li><a href=/books/{{book}}>{{val.title}}</a></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+    
+
+</body>
+</html>
